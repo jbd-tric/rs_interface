@@ -2,15 +2,27 @@ import pyrealsense2 as rs
 import numpy as np
 import cv2, time, os
 from datetime import datetime
+import argparse
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Capture RGB and Depth images from RealSense camera.')
+    parser.add_argument('--runtime', type=int, default=0.5, help='Specify the script runtime in minutes. Default is 30 seconds.')
+    return parser.parse_args()
 
 if __name__ == '__main__':
+    
+    # Parse command line arguments
+    args = parse_arguments()
+    
+    # Convert runtime from minutes to seconds
+    RECORD_DURATION = args.runtime * 60
     
     # Constants
     RESOLUTION_WIDTH = 1280
     RESOLUTION_HEIGHT = 720
-    FRAME_RATE = 30 # Max supported frame rate is 30 FPS
+    FRAME_RATE = 30 # This is the camera frame rate, not the image capture rate
     DISPLAY_FRAMES = False
-    RECORD_DURATION = 30 # seconds
+    IMAGE_CAPTURE_INTERVAL = 5 # seconds
 
     # Create /media/ directory if it doesn't exist
     media_dir = "media"
@@ -38,18 +50,9 @@ if __name__ == '__main__':
     depth_sensor = pipeline.get_active_profile().get_device().first_depth_sensor()
     depth_scale = depth_sensor.get_depth_scale()
 
-    # Create the OpenCV VideoWriter objects for saving RGB and Depth streams
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v') # Codec
-    timestamp = str(int(time.time()))  # UNIX time as a suffix
-
-    rgb_out_path = os.path.join(date_dir, f'rgb_out_{timestamp}.mp4')
-    depth_out_path = os.path.join(date_dir, f'depth_out_{timestamp}.mp4')
-
-    rgb_out = cv2.VideoWriter(rgb_out_path, fourcc, FRAME_RATE, (RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
-    depth_out = cv2.VideoWriter(depth_out_path, fourcc, FRAME_RATE, (RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
-
     # Start recording
     start_time = time.time()
+    last_capture_time = start_time  # Track the last time an image was captured
 
     try:
         while time.time() - start_time < RECORD_DURATION:
@@ -72,10 +75,25 @@ if __name__ == '__main__':
             # Convert depth image to 8-bit for saving
             depth_image_8bit = cv2.convertScaleAbs(depth_image, alpha=0.03)
 
-            # Write frames to video files
-            rgb_out.write(color_image)
-            depth_out.write(cv2.cvtColor(depth_image_8bit, cv2.COLOR_GRAY2BGR)) # Convert to BGR for video
-            
+            # Get the current time
+            current_time = time.time()
+
+            # Capture image every 5 seconds
+            if current_time - last_capture_time >= IMAGE_CAPTURE_INTERVAL:
+                # Save the RGB and Depth images with UNIX time as the suffix
+                timestamp = str(int(current_time))
+
+                rgb_image_path = os.path.join(date_dir, f'rgb_{timestamp}.png')
+                depth_image_path = os.path.join(date_dir, f'depth_{timestamp}.png')
+
+                # Save the color image
+                cv2.imwrite(rgb_image_path, color_image)
+
+                # Save the depth image as a PNG file
+                cv2.imwrite(depth_image_path, depth_image_8bit)
+
+                last_capture_time = current_time  # Update the last capture time
+
             # Display frames while recording
             if DISPLAY_FRAMES:
                 cv2.imshow('RGB Frame', color_image)
@@ -88,6 +106,4 @@ if __name__ == '__main__':
     finally:
         # Stop the pipeline and release resources
         pipeline.stop()
-        rgb_out.release()
-        depth_out.release()
         cv2.destroyAllWindows()
