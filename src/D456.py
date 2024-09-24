@@ -198,8 +198,6 @@ class D456:
         finally:
             print(f"Pitch Angle: {round(pitch,3)} degrees")
 
-
 if __name__ == '__main__':
-    camera = D456(ID="d456_002")
+    camera = D456(ID="d456_001")
     camera.get_pitch_angle()
-
