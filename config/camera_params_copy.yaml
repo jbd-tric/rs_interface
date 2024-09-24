@@ -1,0 +1,63 @@
+cameras:
+  camera_0:
+    id: "rs_default"
+    location: "none"
+    resolution:
+      width: 1280
+      height: 720
+    frame_rate: 30
+    imu_offsets:
+      x: 0
+      y: 0
+      z: 0
+      roll: 0
+      pitch: 0
+      yaw: 0
+    enabled_streams:
+      color_stream: 1
+      depth_stream: 0
+      ir_stream: 0
+      accel_stream: 0
+      gyro_stream: 0
+    
+  camera_1:
+    id: "d456_001"
+    location: "B"
+    resolution:
+      width: 1280
+      height: 720
+    frame_rate: 30
+    imu_offsets:
+      x: 0
+      y: 0
+      z: 0
+      roll: 0
+      pitch: 0
+      yaw: 0
+    enabled_streams:
+      color_stream: 1
+      depth_stream: 1
+      ir_stream: 1
+      accel_stream: 1
+      gyro_stream: 1
+      
+  camera_2:
+    id: "none"
+    location: "none"
+    resolution:
+      width: 1280
+      height: 720
+    frame_rate: 30
+    imu_offsets:
+      x: 0
+      y: 0
+      z: 0
+      roll: 0
+      pitch: 0
+      yaw: 0
+    enabled_streams:
+      color_stream: 1
+      depth_stream: 1
+      ir_stream: 1
+      accel_stream: 1
+      gyro_stream: 1

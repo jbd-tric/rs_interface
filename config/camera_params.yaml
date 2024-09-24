@@ -1,0 +1,61 @@
+cameras:
+  camera_0:
+    enabled_streams:
+      accel_stream: 0
+      color_stream: 1
+      depth_stream: 0
+      gyro_stream: 0
+      ir_stream: 0
+    frame_rate: 30
+    id: rs_default
+    imu_offsets:
+      pitch: 0
+      roll: 0
+      x: 0
+      y: 0
+      yaw: 0
+      z: 0
+    location: none
+    resolution:
+      height: 720
+      width: 1280
+  camera_1:
+    enabled_streams:
+      accel_stream: 1
+      color_stream: 1
+      depth_stream: 1
+      gyro_stream: 1
+      ir_stream: 1
+    frame_rate: 30
+    id: d456_001
+    imu_offsets:
+      pitch: 0
+      roll: 0
+      x: -0.13729310035705566
+      y: -9.610516548156738
+      yaw: 0
+      z: 0.11767979711294174
+    location: B
+    resolution:
+      height: 720
+      width: 1280
+  camera_2:
+    enabled_streams:
+      accel_stream: 1
+      color_stream: 1
+      depth_stream: 1
+      gyro_stream: 1
+      ir_stream: 1
+    frame_rate: 30
+    id: d456_002
+    imu_offsets:
+      pitch: 0
+      roll: 0
+      x: -0.06864655017852783
+      y: -9.63012981414795
+      yaw: 0
+      z: 0.0784531980752945
+    location: none
+    resolution:
+      height: 720
+      width: 1280
