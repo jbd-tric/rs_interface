@@ -25,7 +25,7 @@ if __name__ == '__main__':
     IMAGE_CAPTURE_INTERVAL = 5 # seconds
 
     # Create /media/ directory if it doesn't exist
-    media_dir = "media"
+    media_dir = os.path.join(os.path.expanduser("~"), "real_sense_media")
     if not os.path.exists(media_dir):
         os.makedirs(media_dir)
     
