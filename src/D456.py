@@ -28,7 +28,7 @@ class D456:
 
         try:
             # Read the params file
-            config_path = os.path.join(os.getcwd(),"config", "camera_params.yaml")
+            config_path = os.path.join(os.path.dirname(os.getcwd()),"config", "camera_params.yaml")
             print("Attempting to open " + str(config_path) + "...")
             with open(config_path, 'r+') as file:
                 params = yaml.safe_load(file)
