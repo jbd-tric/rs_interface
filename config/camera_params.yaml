@@ -6,6 +6,8 @@ cameras:
       depth_stream: 0
       gyro_stream: 0
       ir_stream: 0
+    accel_rate: 100
+    gyro_rate: 200
     frame_rate: 30
     id: rs_default
     imu_offsets:
@@ -25,7 +27,9 @@ cameras:
       color_stream: 1
       depth_stream: 1
       gyro_stream: 1
-      ir_stream: 1
+      ir_stream: 0
+    accel_rate: 100
+    gyro_rate: 200
     frame_rate: 30
     id: d456_001
     imu_offsets:
@@ -46,6 +50,8 @@ cameras:
       depth_stream: 1
       gyro_stream: 1
       ir_stream: 1
+    accel_rate: 100
+    gyro_rate: 200
     frame_rate: 30
     id: d456_002
     imu_offsets:
