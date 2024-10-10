@@ -14,7 +14,7 @@ if __name__ == '__main__':
     RESOLUTION_HEIGHT = 720
     FRAME_RATE = 30 # Max supported frame rate is 30 FPS
     DISPLAY_FRAMES = False
-    RECORD_DURATION = 30 # seconds
+    RECORD_DURATION = 5 # seconds
 
     # Create /media/ directory if it doesn't exist
     media_dir = os.path.join(os.path.expanduser("~"), "real_sense_media")
