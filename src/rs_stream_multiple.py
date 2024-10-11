@@ -11,8 +11,6 @@ import time, os, re, subprocess
 RESOLUTION_WIDTH = 1280
 RESOLUTION_HEIGHT = 720
 FRAME_RATE = 30 # Max supported frame rate is 30 FPS
-# DISPLAY_FRAMES = False
-# RECORD_DURATION = 5 # seconds
 
 def find_rs_devices(target_model=""):
     
@@ -72,7 +70,5 @@ if __name__ == '__main__':
         if cv2.waitKey(1) & 0xFF == ord('q'):
             quit = True
             break
-
-    
 
     cv2.destroyAllWindows()

@@ -13,6 +13,6 @@ if __name__ == '__main__':
     rs_devices = find_rs_devices()
     
     for device in rs_devices:
-
+        # device.group_dict()
         print(device)
     
