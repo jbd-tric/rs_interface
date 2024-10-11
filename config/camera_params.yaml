@@ -1,4 +1,36 @@
 cameras:
+  camera_default:
+    robot_location: "unspecified"
+    serial_number: "unspecified"
+    streams:
+      depth:
+        resolution:
+          width: 848
+          height: 480
+        enabled: 1
+        fps: 30
+        format: z16
+      color:
+        resolution:
+          width: 848
+          height: 480
+        enabled: 0
+        fps: 30
+        format: bgr8
+      ir:
+        resolution:
+          width: 848
+          height: 480
+        enabled: 0
+        fps: 30
+        format: y8
+      imu:
+        gyro:
+          enabled: 0
+          fps: 200
+        accelerometer:
+          enabled: 0
+          fps: 200
   camera_0:
     robot_location: A
     serial_number: ""
