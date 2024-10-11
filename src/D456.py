@@ -29,9 +29,8 @@ class D456:
     ## @brief Loads the camera parameters from the YAML file and optionally performs calibration.
     ## 
     ## @param ID Unique camera ID for identification.
-    ## @param calibrate Boolean flag to determine if calibration should be performed.
     ## @return Dictionary containing configuration parameters for the specified camera.
-    def load_camera_params(self, serial, calibrate=False):
+    def load_camera_params(self, serial):
         config_params = None
         params = None
 
@@ -57,7 +56,7 @@ class D456:
 
                 # If no matching camera ID is found, use default camera_0 params
                 if config_params == None:
-                    config_params = params['cameras'].get('camera_0', None)
+                    config_params = params['cameras'].get('camera_default', None)
                     print(f"Unable to locate configuration for {serial}. Loading default params")
                 file.close()
         
@@ -70,13 +69,13 @@ class D456:
     ## @brief Sets up the camera's configuration parameters and enables streams.
     ## 
     ## @param params Dictionary containing camera parameters such as resolution, frame rate, and enabled streams.
-    ## @return Tuple of IMU calibration coefficients (x, y, z, roll, pitch, yaw).
+    
     def setup(self, params):
         
         # Enable the specified streams
         streams = []
 
-        if streams.get('color_stream'):
+        if params['streams']:
             print("Color stream enabled")
             self.__config.enable_stream(rs.stream.color, self.__width, self.__height, rs.format.bgr8, self.__frame_rate)
             self.__enabled_streams.append('rgb_stream')
@@ -96,8 +95,6 @@ class D456:
             self.__config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 200)  # 100 Hz
             self.__config.enable_stream(rs.stream.gyro, rs.format.motion_xyz32f, 200)   # 200 Hz
             self.__enabled_streams.append('imu_stream')
-
-        return coefficients
 
     ## @brief Returns the camera's ID.
     ## @return Camera ID as a string.
