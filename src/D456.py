@@ -302,7 +302,7 @@ class D456:
 
     ## @brief Starts the camera pipeline.
     def start(self):
-        self.__pipeline.start()
+        self.__pipeline.start(self.__config)
 
     ## @brief Calculates the camera's pitch angle using accelerometer data.
     ## @return None

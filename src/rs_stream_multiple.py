@@ -60,13 +60,6 @@ if __name__ == '__main__':
             depth_image = cv2.convertScaleAbs(depth_image, alpha=0.03)
             cv2.imshow(pipeline[0], depth_image)
 
-
-        # for c in captures:
-        #     ret, frame = c.read()
-
-        #     if ret:
-        #         cv2.imshow(device['id'], frame)
-
         if cv2.waitKey(1) & 0xFF == ord('q'):
             quit = True
             break
