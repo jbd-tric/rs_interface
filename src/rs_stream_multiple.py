@@ -18,8 +18,8 @@ def find_rs_devices(target_model=""):
 
     ctx = rs.context()
     for device in ctx.query_devices():
-        device.group_dict()
-        rs_devices.append(device)
+        serial_number = device.get_info(rs.camera_info.serial_number)
+        rs_devices.append(serial_number)
 
     return rs_devices
 
@@ -27,14 +27,14 @@ def init_rs_pipeline(rs_devices):
     
     pipelines = []
 
-    for device in rs_devices:
+    for serial_number in rs_devices:
 
         pipeline = rs.pipeline()
         config = rs.config()
-
+        config.enable_device(serial_number)
         config.enable_stream(rs.stream.depth, RESOLUTION_WIDTH, RESOLUTION_HEIGHT,rs.format.z16, FRAME_RATE)
+        pipelines.append((serial_number, pipeline))
         pipeline.start(config)
-        pipelines.append((device['id'], pipeline))
 
     return pipelines
 
