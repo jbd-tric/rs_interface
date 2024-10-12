@@ -20,7 +20,6 @@ class D456:
         self.__serial = serial  # Store the camera serial number
         self.__pipeline = rs.pipeline()  # Initialize the camera pipeline
         self.__config = rs.config()  # Camera configuration object
-        self.__calibrate = calibrate  # Calibration flag
         self.__enabled_streams = []  # List to track enabled streams
 
         # Load camera parameters from YAML file
@@ -69,32 +68,33 @@ class D456:
     ## @brief Sets up the camera's configuration parameters and enables streams.
     ## 
     ## @param params Dictionary containing camera parameters such as resolution, frame rate, and enabled streams.
-    
     def setup(self, params):
         
         # Enable the specified streams
         streams = []
 
-        if params['streams']:
-            print("Color stream enabled")
-            self.__config.enable_stream(rs.stream.color, self.__width, self.__height, rs.format.bgr8, self.__frame_rate)
-            self.__enabled_streams.append('rgb_stream')
+        for stream in params['streams'].items():
 
-        if streams.get('depth_stream'):
-            print("Depth stream enabled")
-            self.__config.enable_stream(rs.stream.depth, self.__width, self.__height, rs.format.z16, self.__frame_rate)
-            self.__enabled_streams.append('depth_stream')
+            if stream['color']:
+                print("Color stream enabled")
+                self.__config.enable_stream(rs.stream.color, self.__width, self.__height, rs.format.bgr8, self.__frame_rate)
+                self.__enabled_streams.append('rgb_stream')
 
-        if streams.get('ir_stream'):
-            print("IR stream enabled")
-            self.__config.enable_stream(rs.stream.infrared, self.__width, self.__height, rs.format.y8, self.__frame_rate)
-            self.__enabled_streams.append('ir_stream')
+            if streams.get('depth_stream'):
+                print("Depth stream enabled")
+                self.__config.enable_stream(rs.stream.depth, self.__width, self.__height, rs.format.z16, self.__frame_rate)
+                self.__enabled_streams.append('depth_stream')
 
-        if streams.get('accel_stream') == 1:
-            print("IMU stream enabled")
-            self.__config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 200)  # 100 Hz
-            self.__config.enable_stream(rs.stream.gyro, rs.format.motion_xyz32f, 200)   # 200 Hz
-            self.__enabled_streams.append('imu_stream')
+            if streams.get('ir_stream'):
+                print("IR stream enabled")
+                self.__config.enable_stream(rs.stream.infrared, self.__width, self.__height, rs.format.y8, self.__frame_rate)
+                self.__enabled_streams.append('ir_stream')
+
+            if streams.get('accel_stream') == 1:
+                print("IMU stream enabled")
+                self.__config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 200)  # 100 Hz
+                self.__config.enable_stream(rs.stream.gyro, rs.format.motion_xyz32f, 200)   # 200 Hz
+                self.__enabled_streams.append('imu_stream')
 
     ## @brief Returns the camera's ID.
     ## @return Camera ID as a string.
