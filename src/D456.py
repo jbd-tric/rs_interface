@@ -141,5 +141,4 @@ class D456:
         self.__pipeline.start(self.__config)
 
 if __name__ == '__main__':
-    camera = D456(ID="d456_001")  # Initialize the camera with ID
-    camera.get_pitch_angle()  # Get the pitch angle
+    camera = D456()  # Initialize the camera object
